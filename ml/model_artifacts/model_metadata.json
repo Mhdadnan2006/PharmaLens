@@ -1,0 +1,17 @@
+{
+  "final_selected_model": "Random Forest",
+  "serialization_method": "joblib",
+  "expected_model_artifacts": {
+    "model_1": "logistic_regression.joblib",
+    "model_2": "random_forest.joblib",
+    "model_3": "gradient_boosting.joblib",
+    "backwards_compatible_default": "best_model.joblib"
+  },
+  "expected_preprocessor_artifact": "preprocessor.joblib",
+  "artifacts_present_in_workspace": false,
+  "risk_thresholds_from_notebook_output": {
+    "low_below_percentage": 71.1,
+    "medium_below_percentage": 83.6
+  },
+  "note": "The notebook trains Logistic Regression, Random Forest, and Gradient Boosting with a shared fitted preprocessor. The save cell now writes named artifacts for all three models plus best_model.joblib for backwards compatibility. The binary joblib files are not present in this workspace and cannot be reconstructed exactly without rerunning the unchanged notebook training logic."
+}

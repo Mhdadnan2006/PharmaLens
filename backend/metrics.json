@@ -1,0 +1,133 @@
+{
+  "source_notebook": "drug_risk_classifier_api.ipynb",
+  "selected_model": "Random Forest",
+  "selection_rule": "highest combined score: (F1 + ROC-AUC) / 2 on the held-out test set",
+  "serialization": {
+    "method": "joblib",
+    "model_files": {
+      "Logistic Regression": "ml/model_artifacts/logistic_regression.joblib",
+      "Random Forest": "ml/model_artifacts/random_forest.joblib",
+      "Gradient Boosting": "ml/model_artifacts/gradient_boosting.joblib",
+      "Notebook Selected Best Model": "ml/model_artifacts/best_model.joblib"
+    },
+    "preprocessor_file": "ml/model_artifacts/preprocessor.joblib",
+    "artifacts_present_in_workspace": false
+  },
+  "test_set": {
+    "Logistic Regression": {
+      "accuracy": 0.816,
+      "precision": 0.963,
+      "recall": 0.794,
+      "f1": 0.87,
+      "roc_auc": 0.918,
+      "confusion_matrix": [
+        [
+          228,
+          27
+        ],
+        [
+          182,
+          700
+        ]
+      ],
+      "combined_score": 0.894
+    },
+    "Random Forest": {
+      "accuracy": 0.839,
+      "precision": 0.964,
+      "recall": 0.823,
+      "f1": 0.888,
+      "roc_auc": 0.918,
+      "confusion_matrix": [
+        [
+          228,
+          27
+        ],
+        [
+          156,
+          726
+        ]
+      ],
+      "combined_score": 0.903
+    },
+    "Gradient Boosting": {
+      "accuracy": 0.842,
+      "precision": 0.957,
+      "recall": 0.833,
+      "f1": 0.891,
+      "roc_auc": 0.915,
+      "confusion_matrix": [
+        [
+          222,
+          33
+        ],
+        [
+          147,
+          735
+        ]
+      ],
+      "combined_score": 0.903
+    }
+  },
+  "training_set": {
+    "Logistic Regression": {
+      "accuracy": 0.816,
+      "precision": 0.964,
+      "recall": 0.792,
+      "f1": 0.87,
+      "roc_auc": 0.919
+    },
+    "Random Forest": {
+      "accuracy": 0.857,
+      "precision": 0.983,
+      "recall": 0.83,
+      "f1": 0.9,
+      "roc_auc": 0.948
+    },
+    "Gradient Boosting": {
+      "accuracy": 0.869,
+      "precision": 0.978,
+      "recall": 0.851,
+      "f1": 0.91,
+      "roc_auc": 0.95
+    }
+  },
+  "cross_validation": {
+    "folds": 5,
+    "scope": "training set only",
+    "Logistic Regression": {
+      "accuracy": 0.812,
+      "precision": 0.963,
+      "recall": 0.788,
+      "f1": 0.867,
+      "roc_auc": 0.915
+    },
+    "Random Forest": {
+      "accuracy": 0.835,
+      "precision": 0.963,
+      "recall": 0.819,
+      "f1": 0.885,
+      "roc_auc": 0.915
+    },
+    "Gradient Boosting": {
+      "accuracy": 0.842,
+      "precision": 0.959,
+      "recall": 0.832,
+      "f1": 0.891,
+      "roc_auc": 0.916
+    }
+  },
+  "majority_class_baseline": {
+    "prediction": "serious",
+    "accuracy": 0.776,
+    "precision": 0.776,
+    "recall": 1.0,
+    "f1": 0.874
+  },
+  "feature_importance": {
+    "available": false,
+    "model": "Random Forest",
+    "values": [],
+    "unavailable_reason": "The notebook did not print or store RandomForestClassifier.feature_importances_, and best_model.joblib is absent from this workspace. Exact feature importances cannot be recovered without the serialized model or retraining, so no synthetic values were generated."
+  }
+}

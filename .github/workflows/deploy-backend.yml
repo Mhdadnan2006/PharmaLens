@@ -1,0 +1,62 @@
+name: Deploy Backend to Hugging Face Space
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install backend dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build Docker image (verify)
+        run: |
+          docker build -t pharmalens-backend:${{ github.sha }} .
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build frontend (verify)
+        run: |
+          cd frontend
+          npm ci
+          npm run build
+
+      - name: Deploy to Hugging Face Space
+        if: secrets.HF_TOKEN && secrets.HF_SPACE_REPO && secrets.HF_USERNAME
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_USERNAME: ${{ secrets.HF_USERNAME }}
+          HF_SPACE_REPO: ${{ secrets.HF_SPACE_REPO }}
+        run: |
+          set -e
+          git config --global user.email "actions@github.com"
+          git config --global user.name "github-actions[bot]"
+          rm -rf hf-space || true
+          # Clone the space (public clone may work); create if missing
+          git clone https://huggingface.co/spaces/${HF_SPACE_REPO} hf-space || true
+          mkdir -p hf-space
+          cp Dockerfile hf-space/
+          cp requirements.txt hf-space/
+          cp -r backend hf-space/ || true
+          cp -r ml hf-space/ || true
+          cp README.md hf-space/
+          cd hf-space
+          git add .
+          git commit -m "Deploy from GitHub Actions: $GITHUB_SHA" || echo "Nothing to commit"
+          git remote set-url origin https://${HF_USERNAME}:${HF_TOKEN}@huggingface.co/spaces/${HF_SPACE_REPO}
+          git push origin main || (echo "Push failed" && exit 1)

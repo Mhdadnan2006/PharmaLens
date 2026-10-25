@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 99%;
+  --foreground: 222 12% 12%;
+  --muted-2: 220 12% 96%;
+  --surface-1: 0 0% 100%;
+  --surface-2: 220 12% 98%;
+  --glass: rgba(255,255,255,0.6);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --shadow-1: 0 1px 2px rgba(16,24,40,0.04), 0 1px 3px rgba(16,24,40,0.06);
+  --shadow-2: 0 6px 20px rgba(2,6,23,0.08);
+  --card: 0 0% 100%;
+  --card-foreground: 222 12% 12%;
+  --primary: 196 88% 33%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 182 80% 92%;
+  --secondary-foreground: 222 12% 12%;
+  --muted: 220 14% 96%;
+  --muted-foreground: 218 11% 48%;
+  --accent: 186 88% 92%;
+  --accent-foreground: 168 80% 17%;
+  --destructive: 0 74% 48%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 220 12% 92%;
+  --input: 220 12% 92%;
+  --ring: 196 88% 33%;
+  --radius: 10px;
+}
+
+/* Dark theme variables when `html.dark` is present */
+html.dark {
+  --background: 220 14% 7%;
+  --foreground: 210 16% 96%;
+  --card: 220 14% 10%;
+  --card-foreground: 210 16% 96%;
+  --primary: 196 88% 60%;
+  --primary-foreground: 220 14% 7%;
+  --secondary: 182 68% 20%;
+  --secondary-foreground: 210 16% 96%;
+  --muted: 220 12% 8%;
+  --muted-foreground: 210 12% 76%;
+  --accent: 186 90% 65%;
+  --accent-foreground: 220 14% 7%;
+  --destructive: 0 80% 50%;
+  --destructive-foreground: 220 14% 7%;
+  --border: 220 12% 18%;
+  --input: 220 12% 18%;
+  --ring: 196 88% 60%;
+  --radius: 10px;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  min-height: 100vh;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-size: 16px;
+  font-feature-settings: "rlig" 1, "calt" 1;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 220ms ease, color 220ms ease;
+}
+
+/* Small utility animations and entrance states */
+.motion-safe\:fade-in {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: fadeInUp 380ms cubic-bezier(.2,.9,.2,1) forwards;
+}
+
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stat-counter {
+  display: inline-block;
+  transform-origin: left center;
+  animation: statGrow 700ms cubic-bezier(.2,.9,.2,1) both;
+}
+
+@keyframes statGrow {
+  from { transform: scaleX(0.92); opacity: 0.0; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+
+.signal-grid {
+  background-image:
+    linear-gradient(rgba(14, 116, 144, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 116, 144, 0.14) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .signal-pulse { animation: none !important; }
+  * { transition: none !important; }
+}
+
+/* Focus styles for better visibility */
+:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.14), 0 0 0 1px rgba(6,182,212,0.18);
+  border-radius: 6px;
+}
+
+.signal-pulse {
+  animation: signal-rise 6s ease-in-out infinite;
+}
+
+@keyframes signal-rise {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.58;
+  }
+  50% {
+    transform: translateY(-12px);
+    opacity: 1;
+  }
+}
+
